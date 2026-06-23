@@ -1,11 +1,11 @@
-FROM --platform=linux/arm64 golang:1.24-alpine AS builder
+FROM golang:1.24-alpine AS builder
 WORKDIR /app
 COPY go.mod ./
 RUN go mod download
 COPY . .
-RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -o server .
+RUN CGO_ENABLED=0 GOOS=linux GOARCH=arm64 go build -ldflags="-s -w" -o server .
 
-FROM --platform=linux/arm64 alpine:latest
+FROM alpine:latest
 WORKDIR /app
 COPY --from=builder /app/server .
 EXPOSE 8080
