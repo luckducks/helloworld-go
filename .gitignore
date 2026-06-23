@@ -1,0 +1,8 @@
+.venv/
+*.exe
+*.dll
+*.so
+*.dylib
+*.test
+*.out
+vendor/
